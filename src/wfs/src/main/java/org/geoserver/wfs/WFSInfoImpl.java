@@ -21,7 +21,6 @@ public class WFSInfoImpl extends ServiceInfoImpl implements WFSInfo {
     protected boolean canonicalSchemaLocation = false;
     protected boolean encodeFeatureMember = false;    
     protected boolean hitsIgnoreMaxFeatures = false;
-    protected Integer maxNumberOfFeaturesForPreview = 50;
     protected List<String> srs = new ArrayList<String>();
     
     public WFSInfoImpl() {
@@ -126,7 +125,6 @@ public class WFSInfoImpl extends ServiceInfoImpl implements WFSInfo {
         result = prime * result + ((gml == null) ? 0 : gml.hashCode());
         result = prime * result + (hitsIgnoreMaxFeatures ? 1231 : 1237);
         result = prime * result + maxFeatures;
-        result = prime * result + maxNumberOfFeaturesForPreview;
         result = prime * result + ((serviceLevel == null) ? 0 : serviceLevel.hashCode());
         result = prime * result + ((srs == null) ? 0 : srs.hashCode());
         return result;
@@ -160,8 +158,6 @@ public class WFSInfoImpl extends ServiceInfoImpl implements WFSInfo {
         if (encodeFeatureMember != other.isEncodeFeatureMember())
             return false;
         if (hitsIgnoreMaxFeatures != other.isHitsIgnoreMaxFeatures())
-            return false;
-        if (maxNumberOfFeaturesForPreview != other.getMaxNumberOfFeaturesForPreview())
             return false;
         if (srs == null) {
             if (other.getSRS() != null)
