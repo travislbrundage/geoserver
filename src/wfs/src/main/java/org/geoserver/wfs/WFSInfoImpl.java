@@ -171,12 +171,4 @@ public class WFSInfoImpl extends ServiceInfoImpl implements WFSInfo {
         
         return true;
     }
-    
-    private Object readResolve() {
-        if (getMetadata().get("maxNumberOfFeaturesForPreview", Integer.class) == null) {
-            getMetadata().put("maxNumberOfFeaturesForPreview", 50);
-        }
-        
-        return this;
-    }
 }
