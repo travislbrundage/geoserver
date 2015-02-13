@@ -53,27 +53,40 @@ public class PathsTest {
         } catch (IllegalArgumentException expected) {
         }
 
-        try {
-            assertEquals("foo?", path("foo?"));
-            fail("? invalid character");
-        } catch (IllegalArgumentException expected) {
+        if (Paths.STRICT_PATH == true) {
+            try {
+                assertEquals("foo?", path("foo?"));
+                fail("? invalid character");
+            } catch (IllegalArgumentException expected) {
+            }
         }
     }
 
     @Test
     public void validTest() {
-        List<String> valid = Arrays.asList(new String[] { "foo","foo.txt","directory/bar" });
+        List<String> valid = Arrays.asList(new String[] { "foo","foo.txt" });
         for (String name : valid) {
             assertEquals(name, Paths.valid(name));
         }
         
-        List<String> invalid = Arrays.asList(new String[] { ".", "..", "foo?", "foo:", "foo*",
-                "foo\"", "foo<", "foo>?", "foo|", "foo\\" });
+        List<String> invalid = Arrays.asList(new String[] { ".", "..", "foo\\","directory/bar" });
         for (String name : invalid) {
             try {
                 assertEquals(name, Paths.valid(name));
                 fail("invalid:" + name);
             } catch (IllegalArgumentException expected) {
+            }
+        }
+        
+        for (String name : new String[]{"foo:*,\'&?\"<>|bar"}) {
+            if (Paths.STRICT_PATH == true) {
+                try {
+                    assertEquals(name, Paths.valid(name));
+                    fail("invalid:" + name);
+                } catch (IllegalArgumentException expected) {
+                }
+            } else {
+                assertEquals(name, Paths.valid(name));
             }
         }
     }
