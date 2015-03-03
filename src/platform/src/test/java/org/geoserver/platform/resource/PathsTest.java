@@ -67,7 +67,7 @@ public class PathsTest {
             assertEquals(name, Paths.valid(name));
         }
         
-        List<String> invalid = Arrays.asList(new String[] { ".", "..", "foo?", "foo:", "foo*",
+        List<String> invalid = Arrays.asList(new String[] { ".", "..", "foo?", "foo*",
                 "foo\"", "foo<", "foo>?", "foo|", "foo\\" });
         for (String name : invalid) {
             try {
@@ -75,6 +75,10 @@ public class PathsTest {
                 fail("invalid:" + name);
             } catch (IllegalArgumentException expected) {
             }
+        }
+        
+        for (String name : new String[]{"foo::bar"}) {
+            assertEquals(name, Paths.valid(name));
         }
     }
 
