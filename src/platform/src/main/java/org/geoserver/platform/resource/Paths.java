@@ -103,7 +103,7 @@ public class Paths {
         return toPath(names);
     }
     
-    // runtime flag which will determine what we consider invalid
+    // runtime flag which, if true, throws an error for the WARN characters
     static final boolean STRICT_PATH = 
             Boolean.valueOf(System.getProperty("STRICT_PATH", "true"));
     
@@ -113,7 +113,7 @@ public class Paths {
      * <li> backslash
      * </ul>
      */
-    static Pattern VALID = Pattern.compile("^[^\\\\\\]*$");
+    static final Pattern VALID = Pattern.compile("^[^\\\\]*$");
     /**
      * Pattern used to check for ill-advised file characters:
      * <ul>
@@ -130,10 +130,7 @@ public class Paths {
      * </ul> 
      * These characters can cause problems for different protocols.
      */
-    static Pattern WARN = Pattern.compile("^[:*,\'&?\"<>|]*$");
-    
-
-
+    static final Pattern WARN = Pattern.compile("^[^:*,\'&?\"<>|]*$");
     /**
      * Set of invalid resource names (currently used to quickly identify relative paths).
      */
@@ -164,7 +161,11 @@ public class Paths {
                 throw new IllegalArgumentException("Contains invalid " + item + " path: " + buf);
             }
             if (!WARN.matcher(item).matches()) {
-                // to do warning 
+                if (STRICT_PATH == true) {
+                    throw new IllegalArgumentException("Contains invalid " + item + " path: " + buf);
+                } else {
+                    // TODO: warning
+                }
             }
             buf.append(item);
             if (i < LIMIT - 1) {
@@ -192,7 +193,11 @@ public class Paths {
             throw new IllegalArgumentException("Contains invalid chracters " + path);
         }
         if (!WARN.matcher(path).matches()) {
-            // todo warning
+            if (STRICT_PATH == true) {
+                throw new IllegalArgumentException("Contains invalid chracters " + path);
+            } else {
+                // TODO: warning
+            }
         }
         return path;
     }
