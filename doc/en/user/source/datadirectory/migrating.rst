@@ -153,4 +153,33 @@ Backup files
                config.xml.2.2.x
           config.xml.2.2.x        
 
-       
+Migrating between GeoServer 2.5.x and 2.7.x
+-------------------------------------------
+
+The catalog naming conventions became more strict in 2.6, invalidating certain characters within names. This is because certain protocols will not work correctly with certain characters in the name. The naming restrictions can be relaxed by setting the STRICT_PATH java system property to false. ::
+
+    java -DSTRICT_PATH=false Start
+
+This will allow, with warnings, all of the following characters:
+  
+* star (*)
+
+* colon (:)
+
+* comma (,)
+
+* single quote (')
+
+* ampersand (&)
+  
+* question mark (?)
+  
+* double quote (")
+  
+* less than (<)
+  
+* greater than (>)
+  
+* bar (|)
+
+Be warned that some requests or protocols may behave unexpectedly when these characters are allowed. We recommend that you update your catalog to follow appropriate naming conventions.
