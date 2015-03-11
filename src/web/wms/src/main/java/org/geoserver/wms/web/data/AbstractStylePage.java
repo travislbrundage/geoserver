@@ -14,7 +14,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import javax.imageio.ImageIO;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
@@ -60,6 +67,11 @@ import org.geoserver.wms.GetLegendGraphicRequest;
 import org.geoserver.wms.legendgraphic.BufferedImageLegendGraphicBuilder;
 import org.geoserver.wms.web.publish.StyleChoiceRenderer;
 import org.geoserver.wms.web.publish.StylesModel;
+import org.geotools.styling.NamedLayer;
+import org.geotools.styling.Style;
+import org.geotools.styling.StyledLayer;
+import org.geotools.styling.StyledLayerDescriptor;
+import org.geotools.styling.UserLayer;
 import org.xml.sax.SAXParseException;
 
 /**
@@ -104,7 +116,7 @@ public abstract class AbstractStylePage extends GeoServerSecuredPage {
         initUI(style);
     }
 
-    protected void initUI(StyleInfo style) {
+    protected void initUI(final StyleInfo style) {
         CompoundPropertyModel<StyleInfo> styleModel = new CompoundPropertyModel(style != null ? 
             new StyleDetachableModel(style) : getCatalog().getFactory().createStyle());
         
@@ -225,11 +237,11 @@ public abstract class AbstractStylePage extends GeoServerSecuredPage {
         legendContainer = new WebMarkupContainer("legendContainer");
         legendContainer.setOutputMarkupId(true);
         add(legendContainer);
-        legend = new Image("legend");
-        legendContainer.add(legend);
-        legend.setVisible(false);
-        legend.setOutputMarkupId(true);
-        legend.setImageResource(new DynamicWebResource() {
+        this.legend = new Image("legend");
+        legendContainer.add(this.legend);
+        this.legend.setVisible(false);
+        this.legend.setOutputMarkupId(true);
+        this.legend.setImageResource(new DynamicWebResource() {
 
             @Override
             protected ResourceState getResourceState() {

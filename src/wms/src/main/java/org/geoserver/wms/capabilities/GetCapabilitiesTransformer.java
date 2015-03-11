@@ -10,6 +10,7 @@ import static org.geoserver.ows.util.ResponseUtils.buildSchemaURL;
 import static org.geoserver.ows.util.ResponseUtils.buildURL;
 import static org.geoserver.ows.util.ResponseUtils.params;
 
+import java.awt.Dimension;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -36,6 +37,7 @@ import javax.xml.transform.TransformerException;
 import org.apache.commons.lang.StringUtils;
 import org.geoserver.catalog.AttributionInfo;
 import org.geoserver.catalog.AuthorityURLInfo;
+import org.geoserver.catalog.DataLinkInfo;
 import org.geoserver.catalog.FeatureTypeInfo;
 import org.geoserver.catalog.KeywordInfo;
 import org.geoserver.catalog.LayerGroupInfo;
@@ -44,9 +46,9 @@ import org.geoserver.catalog.LayerInfo;
 import org.geoserver.catalog.LegendInfo;
 import org.geoserver.catalog.MetadataLinkInfo;
 import org.geoserver.catalog.PublishedInfo;
+import org.geoserver.catalog.PublishedType;
 import org.geoserver.catalog.ResourceInfo;
 import org.geoserver.catalog.StyleInfo;
-import org.geoserver.catalog.PublishedType;
 import org.geoserver.catalog.WMSLayerInfo;
 import org.geoserver.config.ContactInfo;
 import org.geoserver.config.GeoServer;
@@ -79,11 +81,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.helpers.AttributesImpl;
 
-import sun.security.action.GetBooleanAction;
-
 import com.google.common.collect.Iterables;
 import com.vividsolutions.jts.geom.Envelope;
-import org.geoserver.catalog.DataLinkInfo;
 
 /**
  * Geotools xml framework based encoder for a Capabilities WMS 1.1.1 document.

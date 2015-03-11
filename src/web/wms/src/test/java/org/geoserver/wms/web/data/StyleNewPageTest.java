@@ -67,7 +67,7 @@ public class StyleNewPageTest extends GeoServerWicketTestSupport {
         FormTester form = tester.newFormTester("form");
         File styleFile = new File(new java.io.File(getClass().getResource("default_point.sld").toURI()));
         String sld = IOUtils.toString(new FileReader(styleFile)).replaceAll("\r\n", "\n").replaceAll("\r", "\n");
-        form.setValue("SLD:editorContainer:editor", sld);
+        form.setValue("styleEditor:editorContainer:editorParent:editor", sld);
         form.setValue("name", "nolegendtest");
         form.submit();
         
@@ -82,7 +82,7 @@ public class StyleNewPageTest extends GeoServerWicketTestSupport {
         FormTester form = tester.newFormTester("form");
         File styleFile = new File(new java.io.File(getClass().getResource("default_point.sld").toURI()));
         String sld = IOUtils.toString(new FileReader(styleFile)).replaceAll("\r\n", "\n").replaceAll("\r", "\n");
-        form.setValue("SLD:editorContainer:editor", sld);
+        form.setValue("styleEditor:editorContainer:editorParent:editor", sld);
         form.setValue("name", "legendtest");
         form.setValue("onlineResource", "http://myurl.com/legend.png");
         form.setValue("width", "100");
@@ -101,7 +101,7 @@ public class StyleNewPageTest extends GeoServerWicketTestSupport {
         FormTester form = tester.newFormTester("form");
         File styleFile = new File(new java.io.File(getClass().getResource("default_point.sld").toURI()));
         String sld = IOUtils.toString(new FileReader(styleFile)).replaceAll("\r\n", "\n").replaceAll("\r", "\n");
-        form.setValue("SLD:editorContainer:editor", sld);
+        form.setValue("styleEditor:editorContainer:editorParent:editor", sld);
         form.setValue("name", "legendwrongvaluestest");
         form.setValue("onlineResource", "thisisnotavalidurl");
         form.setValue("width", "-1");
@@ -119,7 +119,7 @@ public class StyleNewPageTest extends GeoServerWicketTestSupport {
         FormTester form = tester.newFormTester("form");
         File styleFile = new File(new java.io.File(getClass().getResource("default_point.sld").toURI()));
         String sld = IOUtils.toString(new FileReader(styleFile)).replaceAll("\r\n", "\n").replaceAll("\r", "\n");
-        form.setValue("styleEditor:editorContainer:editor", sld);
+        form.setValue("styleEditor:editorContainer:editorParent:editor", sld);
         form.submit();
        
         
@@ -143,14 +143,14 @@ public class StyleNewPageTest extends GeoServerWicketTestSupport {
         FormTester form = tester.newFormTester("form");
         File styleFile = new File(new java.io.File(getClass().getResource("default_point.sld").toURI()));
         String sld = IOUtils.toString(new FileReader(styleFile)).replaceAll("\r\n", "\n").replaceAll("\r", "\n");
-        form.setValue("SLD:editorContainer:editor", sld);
+        form.setValue("styleEditor:editorContainer:editorParent:editor", sld);
         form.setValue("name", "repeatedname");
         form.submit();               
         tester.assertRenderedPage(StylePage.class);
         
         tester.startPage(StyleNewPage.class);
         form = tester.newFormTester("form");                
-        form.setValue("SLD:editorContainer:editor", sld);
+        form.setValue("styleEditor:editorContainer:editorParent:editor", sld);
         form.setValue("name", "repeatedname");
         form.submit();               
         tester.assertRenderedPage(StyleNewPage.class);
