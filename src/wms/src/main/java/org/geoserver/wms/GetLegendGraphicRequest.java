@@ -87,7 +87,7 @@ public class GetLegendGraphicRequest extends WMSRequest {
      * 
      * @author Jody Garnett (Boundless)
      */
-    public class LegendRequest {
+    public static class LegendRequest {
         private String layer;
         private Name layerName;
         private FeatureType featureType;

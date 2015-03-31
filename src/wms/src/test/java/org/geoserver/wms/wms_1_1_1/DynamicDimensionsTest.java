@@ -45,7 +45,7 @@ import com.mockrunner.mock.web.MockHttpServletResponse;
  * @author Andrea Aime - GeoSolutions
  */
 public class DynamicDimensionsTest extends WMSTestSupport {
-    
+	// TODO: Step through this in comparison to master and see what happens differently and why
     private static final QName WATTEMP = new QName(MockData.DEFAULT_URI, "watertemp", MockData.DEFAULT_PREFIX);
     private static final String DIMENSION_NAME = "WAVELENGTH";
     private static final String CAPABILITIES_REQUEST = "wms?request=getCapabilities&version=1.1.1";
