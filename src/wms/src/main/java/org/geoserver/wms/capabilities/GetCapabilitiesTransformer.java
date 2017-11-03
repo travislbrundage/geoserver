@@ -1130,6 +1130,8 @@ public class GetCapabilitiesTransformer extends TransformerBase {
            }
            handleMetadataList(metadataLinks);
 
+           // TODO: Fix this to be correct layer thingy
+           int layerGroupsUnderSingle = 5;
            // handle children layers and groups
            if(LayerGroupInfo.Mode.OPAQUE_CONTAINER.equals(layerGroup.getMode())) {
                // just hide the layers in the group
@@ -1146,7 +1148,15 @@ public class GetCapabilitiesTransformer extends TransformerBase {
                        handleLayerGroup((LayerGroupInfo) child, layersAlreadyProcessed);
                    }
                }
-           }           
+           } else {
+               // record any layer groups nested under a SINGLE layer
+               for (PublishedInfo child : layerGroup.getLayers()) {
+                   if (!(child instanceof LayerInfo)) {
+                       // TODO: Add (LayerGroupInfo) child to list
+                       layerGroupsUnderSingle++;
+                   }
+               }
+           }
            
            // the layer style is not provided since the group does just have
            // one possibility, the lack of styles that will make it use
@@ -1155,7 +1165,16 @@ public class GetCapabilitiesTransformer extends TransformerBase {
            handleScaleHint(layerGroup);
 
            end("Layer");
+           // process nested layer groups that were inside a "Single" mode layer group
+           handleLayerGroupsUnderSingle(layerGroupsUnderSingle);
        }
+
+        // TODO: Fix this method to add the layer group here
+        // This probably can be as simple as calling "handleLayerGroup"
+        // wrapped in the correct commit or w/e
+        protected void handleLayerGroupsUnderSingle(int paramToFix) {
+            int ok = paramToFix;
+        }
        
         protected Set<LayerInfo> handleLayerGroups(List<LayerGroupInfo> layerGroups) throws FactoryException,
                 TransformException, IOException {
