@@ -157,6 +157,16 @@
       <artifactId>gt-jdbc-postgis</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.geotools.jdbc</groupId>
+      <artifactId>gt-jdbc-vertica</artifactId>
+      <version>${gt.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.vertica.jdbc</groupId>
+      <artifactId>Driver</artifactId>
+      <version>9.0.0-0</version>
+    </dependency>
+    <dependency>
       <groupId>org.geotools</groupId>
       <artifactId>gt-geopkg</artifactId>
     </dependency>
